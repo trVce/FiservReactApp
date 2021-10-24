@@ -17,5 +17,6 @@ namespace FiservReactApp.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+        public DbSet<FiservReactApp.Models.Quote> Quote { get; set; }
     }
 }

@@ -18,13 +18,14 @@ namespace FiservReactApp.Models
         }
 
         public virtual DbSet<Quote> Quotes { get; set; }
+        public virtual DbSet<Score> Scores { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=FiservDemoDB;Integrated Security=True;");
+                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=FiservDemoDB;Integrated Security=True");
             }
         }
 
@@ -44,6 +45,20 @@ namespace FiservReactApp.Models
                     .HasMaxLength(2000)
                     .IsUnicode(false)
                     .HasColumnName("Quote");
+            });
+
+            modelBuilder.Entity<Score>(entity =>
+            {
+                entity.Property(e => e.Username)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Quote)
+                    .WithMany(p => p.Scores)
+                    .HasForeignKey(d => d.QuoteId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_QuoteScore");
             });
 
             OnModelCreatingPartial(modelBuilder);

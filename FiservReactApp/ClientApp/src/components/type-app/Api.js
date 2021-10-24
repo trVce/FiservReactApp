@@ -6,20 +6,22 @@ const Api = (props) => {
     const [done, setDone] = useState(false);
     useEffect(() =>  {
         if(props.ready === true){
-            const url = "https://www.abbreviations.com/services/v2/quotes.php?uid=" + props.usr +
-                "&tokenid=" + props.tkn + "&searchtype=RANDOM&format=json";
-            fetch(url)
+            const num = Math.floor(Math.random() * 15) + 1;
+            const randomQuote = 'api/Quotes/' + num;
+            fetch(randomQuote)
                 .then(res => res.json())
                 .then(res => {
                     try {
-                        setText(res.result.quote);
-                        setAuthor(res.result.author);
-                        props.quotefunction(res.result.quote);
+                        setText(res.quote1);
+                        setAuthor(res.author);
+                        props.quotefunction(res.quote1);
+                        props.quoteidfunction(res.quoteId);
                         setDone(false);
                     }
                     catch (e) {
-                        setText("Please check UserID and Token");
-                        setAuthor("Error");
+
+                        setText(randomQuote);
+                        setAuthor(author);
                     }
                 });
         }
@@ -31,8 +33,8 @@ const Api = (props) => {
     
 
     return(
-        <div className={done ? "FinishedCard" : "TextCard"}>
-            <h2 class="h2">{author}</h2>
+        <div className={done ? "bg-success text-white border rounded" : "border rounded"}>
+            <h3 class="h3">{author}</h3>
             <p>{text}</p>
             
         </div>

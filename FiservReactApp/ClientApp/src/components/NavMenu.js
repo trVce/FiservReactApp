@@ -21,7 +21,7 @@ export class NavMenu extends Component {
       collapsed: !this.state.collapsed
     });
   }
-
+// removed '<LoginMenu>  </LoginMenu>' element for now until I can later implement accounts
   render () {
     return (
       <header>
@@ -43,8 +43,7 @@ export class NavMenu extends Component {
                 <NavItem>
                    <NavLink tag={Link} className="text-dark" to="/typing">Type App</NavLink>
                 </NavItem>
-                <LoginMenu>
-                </LoginMenu>
+                
               </ul>
             </Collapse>
           </Container>

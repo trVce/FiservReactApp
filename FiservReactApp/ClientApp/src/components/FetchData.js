@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
-import authService from './api-authorization/AuthorizeService'
+
 
 export class FetchData extends Component {
   static displayName = FetchData.name;
 
   constructor(props) {
     super(props);
-    this.state = { forecasts: [], loading: true };
+    this.state = { quotes: [], loading: true };
   }
 
   componentDidMount() {
-    this.populateWeatherData();
+    this.populateQuoteData();
   }
 
-  static renderForecastsTable(forecasts) {
+  static renderquotesTable(quotes) {
     return (
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
@@ -23,10 +23,10 @@ export class FetchData extends Component {
           </tr>
         </thead>
         <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.QuoteID}>
-              <td>{forecast.author}</td>
-              <td>{forecast.quote1}</td>
+          {quotes.map(quote =>
+            <tr key={quote.QuoteID}>
+              <td>{quote.author}</td>
+              <td>{quote.quote1}</td>
              </tr>
           )}
         </tbody>
@@ -37,20 +37,19 @@ export class FetchData extends Component {
   render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
+      : FetchData.renderquotesTable(this.state.quotes);
 
     return (
       <div>
-        <h1 id="tabelLabel" >Weather forecast</h1>
-        <p>This component demonstrates fetching data from the server.</p>
+        <h1 id="tabelLabel" >Quotes</h1>
         {contents}
       </div>
     );
   }
 
-  async populateWeatherData() {
-    const response = await fetch('/quote')
+  async populateQuoteData() {
+      const response = await fetch('api/Quotes')
     const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
+    this.setState({ quotes: data, loading: false });
   }
 }

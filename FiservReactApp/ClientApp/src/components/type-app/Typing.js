@@ -3,10 +3,10 @@ import Api from './Api';
 import Timer from './Timer';
 const Typing = () => {
   const [userID, setUserID] = useState("");
-  const [token, setToken] = useState("");
   const [inputText, setInputText] = useState("");
   
   const [quote, setQuote] = useState("");
+  const [quoteId, setQuoteId] = useState("");
   const [wordCount, setWordCount] = useState(0);
   const [time, setTime] = useState(0);
   
@@ -19,9 +19,7 @@ const Typing = () => {
     setUserID(event.target.value);
   }
 
-  function handleTokenForum(event) {
-    setToken(event.target.value);
-  }
+
 
   function handleInputForum(event) {
     if (event.target.value.endsWith(quote.charAt(inputText.length))) {
@@ -30,7 +28,16 @@ const Typing = () => {
     if (quote === event.target.value && quote !== "") {
       setDone(true);
       setTimerObj("");
-      setInputText("");
+        setInputText("");
+        let score = { Username: userID, QuoteId: quoteId }
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(score),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        fetch('api/Scores', options);
     }
   }
 
@@ -48,7 +55,7 @@ const Typing = () => {
   }
 
   useEffect(() => {
-    if (ready === true && userID !== "" && token !== "") {
+    if (ready === true && userID !== "") {
         setReady(false);
     }
 
@@ -59,50 +66,38 @@ const Typing = () => {
       words = words.replace(/\n /, "\n");
       setWordCount(Math.round((words.split(' ').length / time) * 60));
     }
-  }, [ready, token, userID, inputText, time]);
+  }, [ready, userID, inputText, time]);
 
   return (
     <div className="App">
       <header className="App-header">
 
-        <h1>
+        <h1 class="h1">
           Typing Race
         </h1>
-        
+
         <div className="form-group">
-          <label>
-            userID:
-          </label>
+            <label>
+            Username:
+            </label>
+                  
             <input
             class="form-control"
             name="userID"
             type="text"
             onChange={handleUserIdForum} />
         </div>
-
-        <div className="form-group">
-          <label>
-            token:
-            </label>
-            <input
-            class="form-control"
-            name="token"
-            type="password"
-            onChange={handleTokenForum} />
-        </div>
-
-        <button class="btn btn-primary" onClick={newCard}>New Card</button>
+       
       </header>
 
       <body className="App-body">
         <p>
           <Api
-            usr={userID}
-            tkn={token}
             quotefunction={setQuote}
+            quoteidfunction={setQuoteId}
             ready={ready}
             isDone={isDone}
-            time={time} 
+            time={time}
             />
         </p>
         {start ? <p>
@@ -122,7 +117,8 @@ const Typing = () => {
             value={inputText}
             onChange={handleInputForum} />
           </div> 
-        : null}
+                  : null}
+          <button class="btn btn-primary" onClick={newCard}>New Card</button>
         
       </body>
 
