@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31613.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiservReactApp", "FiservReactApp\FiservReactApp.csproj", "{B397B125-E771-4EBD-8C6B-031BEF9D9E99}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B397B125-E771-4EBD-8C6B-031BEF9D9E99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B397B125-E771-4EBD-8C6B-031BEF9D9E99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B397B125-E771-4EBD-8C6B-031BEF9D9E99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B397B125-E771-4EBD-8C6B-031BEF9D9E99}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8881F396-B2DE-456F-B95F-4341D14D94A0}
+	EndGlobalSection
+EndGlobal
