@@ -6,7 +6,6 @@ const FetchScores = (props) => {
     const [myVar, setMyVar] = useState(true);
     const [listCount] = useState(props.listCount);
     const [quoteId] = useState(props.quoteId);
-    
     useEffect(() => {
         fetch('api/Scores')
             .then(res => res.json())
@@ -62,6 +61,7 @@ const FetchScores = (props) => {
                                 <th>User</th>
                                 <th>WPM</th>
                                 <th>Qoute Id</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
