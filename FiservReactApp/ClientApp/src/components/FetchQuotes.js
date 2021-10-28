@@ -7,8 +7,6 @@ const FetchQoutes = (props) => {
     const [scoresTable, setScoresTable] = useState(null);
 
     useEffect(() => {
-        const response = fetch('api/Scores')
-
         fetch('api/Quotes')
             .then(res => res.json())
             .then(res => {
@@ -34,28 +32,32 @@ const FetchQoutes = (props) => {
     }
 
     function renderscoresTable(quotes) {
-        if (quotes != null && quotes != undefined) {
+      
+        if (quotes !== null && quotes !== undefined) {
             return (
-                <table className='table table-striped' aria-labelledby="tabelLabel">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Author</th>
-                            <th>Quote</th>
-                            <th>Scores</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {quotes.map(quote =>
-                            <tr key={quote.quoteId}>
-                                <td>{quote.quoteId}</td>
-                                <td>{quote.author}</td>
-                                <td>{quote.quote1}</td>
-                                <td><button class="btn btn-primary" onClick={() => findScores(quote.quoteId)}>Scores</button></td>
+                <div>
+                    <h3> Quotes </h3>
+                    <table className='table table-striped border' aria-labelledby="tabelLabel">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Author</th>
+                                <th>Quote</th>
+                                <th>Scores</th>
                             </tr>
-                        )}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {quotes.map(quote =>
+                                <tr key={quote.quoteId}>
+                                    <td>{quote.quoteId}</td>
+                                    <td>{quote.author}</td>
+                                    <td>{quote.quote1}</td>
+                                    <td><button class="btn btn-primary" onClick={() => findScores(quote.quoteId)}>Scores</button></td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             );
         } else {
             return

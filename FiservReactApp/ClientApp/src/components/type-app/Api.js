@@ -6,24 +6,25 @@ const Api = (props) => {
     const [done, setDone] = useState(false);
     useEffect(() =>  {
         if(props.ready === true){
-            const num = Math.floor(Math.random() * 15) + 1;
-            const randomQuote = 'api/Quotes/' + num;
-            fetch(randomQuote)
+            
+
+            fetch('api/Quotes')
                 .then(res => res.json())
                 .then(res => {
                     try {
-                        setText(res.quote1);
-                        setAuthor(res.author);
-                        props.quotefunction(res.quote1);
-                        props.quoteidfunction(res.quoteId);
+                        const num = Math.floor(Math.random() * res.length) + 1;
+                        setText(res[num].quote1);
+                        setAuthor(res[num].author);
+                        props.quotefunction(res[num].quote1);
+                        props.quoteidfunction(res[num].quoteId);
                         setDone(false);
                     }
                     catch (e) {
-
-                        setText(randomQuote);
+                        setText("error");
                         setAuthor(author);
                     }
-                });
+            });
+            
         }
         if(props.isDone === true){
             setDone(true);

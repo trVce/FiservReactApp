@@ -23,10 +23,6 @@ const Typing = () => {
         setUserID(event.target.value);
     }
 
-    function sleep(milliseconds) {
-        return new Promise(resolve => setTimeout(resolve, milliseconds));
-    }
-
     function handleInputForum(event) {
         if (event.target.value.endsWith(quote.charAt(inputText.length))) {
             setInputText(event.target.value);
@@ -43,7 +39,8 @@ const Typing = () => {
                     'Content-Type': 'application/json'
                 }
             }
-            fetch('api/Scores', options).then(sleep(20)).then(setshowScore(<FetchScores quoteId={quoteId}/>));
+            fetch('api/Scores', options);
+            setshowScore(<FetchScores quoteId={quoteId}/>);
         }
     }
 
@@ -77,57 +74,61 @@ const Typing = () => {
 
     return (
         <div className="App">
-            <header className="App-header">
 
-            <h1 class="h1">
-                Typing Race
-            </h1>
+            {start ?
+                <div>
+                        {showScore}
+                        <p>
+                            <Api
+                                quotefunction={setQuote}
+                                quoteidfunction={setQuoteId}
+                                ready={ready}
+                                isDone={isDone}
+                                time={time}
+                            />
+                        </p>
+                        <p>
+                            {timerObj}
+                            WPM:{wordCount}
+                        </p>
+                            <div>
+                                <label>
+                                    Type Here:
+                                </label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    name="inputText"
+                                    value={inputText}
+                                    onChange={handleInputForum} />
+                            </div>
+                        <button class="btn btn-primary" onClick={newCard}>New Quote</button>
+                </div> :
 
-            <div className="form-group">
-                <label>
-                Username:
-                </label>
-                  
-                <input
-                class="form-control"
-                name="userID"
-                type="text"
-                onChange={handleUserIdForum} />
-            </div>
-       
-            </header>
+                <div>
+                    <h1 class="h1">
+                        Typing Race
+                    </h1>
 
-            <body className="App-body">
-            <p>
-                <Api
-                quotefunction={setQuote}
-                quoteidfunction={setQuoteId}
-                ready={ready}
-                isDone={isDone}
-                time={time}
-                />
-            </p>
-            {start ? <p>
-                {timerObj}
-                WPM:{wordCount}
-            </p>
-            : null}
-            {start ? 
-                <div className="App-text-entry">
-                <label>
-                Type Here:
-                </label>
-                <input
-                class="form-control"
-                type="text"
-                name="inputText"
-                value={inputText}
-                onChange={handleInputForum} />
-                </div> 
-                        : null}
-                <button class="btn btn-primary" onClick={newCard}>New Card</button>
-                {showScore}
-            </body>
+                    <div className="form-group">
+                        <label>
+                            Username:
+                        </label>
+
+                        <input
+                            class="form-control col-lg-8"
+                            name="userID"
+                            type="text"
+                            onChange={handleUserIdForum} />
+                    </div>
+                    <button class="btn btn-primary" onClick={newCard}>Start</button>
+
+                </div>
+
+            }
+            
+
+            
 
         </div>
     );
